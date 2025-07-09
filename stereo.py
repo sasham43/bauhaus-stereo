@@ -5,7 +5,7 @@ import sys
 
 pygame.init()
 screen_width, screen_height = 800, 400
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 pygame.display.set_caption("Visualizer Modes")
 clock = pygame.time.Clock()
 FPS = 60
