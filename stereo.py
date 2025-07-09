@@ -2,6 +2,11 @@ import pygame
 import math
 import random
 import sys
+import os
+
+# allow SSH user to display on HDMI
+os.environ["DISPLAY"] = ":0"
+os.environ["XAUTHORITY"] = "/home/pi/.Xauthority"
 
 pygame.init()
 screen_width, screen_height = 800, 400
