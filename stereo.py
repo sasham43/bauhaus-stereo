@@ -3,6 +3,7 @@ import math
 import random
 import sys
 import os
+import subprocess
 
 # allow SSH user to display on HDMI
 os.environ["DISPLAY"] = ":0"
@@ -34,6 +35,38 @@ floppy_done = False
 floppy_duration = 3 * FPS
 
 # === UTILITY FUNCTIONS ===
+def get_floppy_mount_point():
+    try:
+        # Use lsblk to find mounted devices with "floppy" or "fd" in the name
+        output = subprocess.check_output(['lsblk', '-o', 'NAME,MOUNTPOINT', '-nr']).decode()
+        for line in output.strip().split('\n'):
+            parts = line.strip().split()
+            if len(parts) == 2:
+                name, mount = parts
+                if 'fd' in name or 'floppy' in name:
+                    return mount
+    except subprocess.CalledProcessError:
+        pass
+    return None
+
+def read_msg_file(mount_point):
+    msg_path = os.path.join(mount_point, 'msg.txt')
+    if os.path.exists(msg_path):
+        with open(msg_path, 'r') as f:
+            return f.read().strip()
+    return None
+
+def play_youtube_url(url):
+    try:
+        print(f"Playing: {url}")
+        # Use youtube-dl or yt-dlp to get the best video stream URL and pass to omxplayer
+        stream_url = subprocess.check_output(
+            ['youtube-dl', '-g', url], stderr=subprocess.DEVNULL
+        ).decode().strip()
+        subprocess.run(['omxplayer', stream_url])
+    except Exception as e:
+        print(f"Error playing video: {e}")
+
 def get_simulated_amplitude(i, t):
     frequency = 0.05 * (i + 1)
     amplitude = (math.sin(t * frequency + i * 0.5) + 1) / 2
@@ -79,6 +112,19 @@ while running:
             y = screen_height - height - 40
             draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, (0, 255, 255))
         t += 1
+
+    # floppy stuff
+    mount_point = get_floppy_mount_point()
+    if not mount_point:
+        print("No floppy drive mounted.")
+        # return
+
+    print(f"Floppy mounted at: {mount_point}")
+    url = read_msg_file(mount_point)
+    if url and 'youtube.com' in url:
+        play_youtube_url(url)
+    else:
+        print("No valid YouTube URL found in msg.txt")
 
 
     pygame.display.flip()
