@@ -43,7 +43,7 @@ def get_floppy_mount_point():
             parts = line.strip().split()
             if len(parts) == 2:
                 name, mount = parts
-                if 'fd' in name or 'floppy' in name:
+                if 'fd' in name or 'floppy' in name or 'sda' in name:
                     return mount
     except subprocess.CalledProcessError:
         pass
