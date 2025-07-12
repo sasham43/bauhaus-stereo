@@ -61,7 +61,7 @@ def play_youtube_url(url):
         print(f"Playing: {url}")
         # Use youtube-dl or yt-dlp to get the best video stream URL and pass to omxplayer
         stream_url = subprocess.check_output(
-            ['youtube-dl', '-g', url], stderr=subprocess.DEVNULL
+            ['yt-dlp', '-g', url], stderr=subprocess.DEVNULL
         ).decode().strip()
         subprocess.run(['omxplayer', stream_url])
     except Exception as e:
