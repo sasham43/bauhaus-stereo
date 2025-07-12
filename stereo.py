@@ -118,13 +118,13 @@ while running:
     if not mount_point:
         print("No floppy drive mounted.")
         # return
-
-    print(f"Floppy mounted at: {mount_point}")
-    url = read_msg_file(mount_point)
-    if url and 'youtube.com' in url:
-        play_youtube_url(url)
     else:
-        print("No valid YouTube URL found in msg.txt")
+        print(f"Floppy mounted at: {mount_point}")
+        url = read_msg_file(mount_point)
+        if url and 'youtube.com' in url:
+            play_youtube_url(url)
+        else:
+            print("No valid YouTube URL found in msg.txt")
 
 
     pygame.display.flip()
