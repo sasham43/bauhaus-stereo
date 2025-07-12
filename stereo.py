@@ -21,6 +21,7 @@ bar_spacing = 20
 num_bars = 7
 bar_width = (screen_width - bar_spacing * (num_bars + 1)) // num_bars
 bar_depth = 12
+bar_color = (0, 255, 255)
 
 
 # === MODE MANAGEMENT ===
@@ -53,6 +54,13 @@ def read_msg_file(mount_point):
     msg_path = os.path.join(mount_point, 'msg.txt')
     if os.path.exists(msg_path):
         with open(msg_path, 'r') as f:
+            return f.read().strip()
+    return None
+
+def read_color_file(mount_point):
+    path = os.path.join(mount_point, 'color.txt')
+    if os.path.exists(path):
+        with open(path, 'r') as f:
             return f.read().strip()
     return None
 
@@ -99,6 +107,9 @@ else:
         play_youtube_url(url)
     else:
         print("No valid YouTube URL found in msg.txt")
+    
+    # color
+    bar_color = read_color_file(mount_point)
 
 t = 0
 running = True
@@ -125,7 +136,8 @@ while running:
             height = int(amplitude * screen_height * 0.8)
             x = bar_spacing + i * (bar_width + bar_spacing)
             y = screen_height - height - 40
-            draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, (0, 255, 255))
+            # draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, (0, 255, 255))
+            draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, bar_color)
         t += 1
 
 
