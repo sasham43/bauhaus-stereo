@@ -64,6 +64,19 @@ def read_color_file(mount_point):
             return f.read().strip()
     return None
 
+def read_audio_file(mount_point):
+    path = os.path.join(mount_point, 'audio.txt')
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            return f.read().strip()
+    return None
+
+def play_audio_file(file):
+    try:
+        subprocess.Popen(['cvlc', file])
+    except Exception as e:
+        print(f"Error playing audio: {e}")
+
 def play_youtube_url(url):
     try:
         print(f"Playing: {url}")
@@ -102,6 +115,8 @@ if not mount_point:
     # return
 else:
     print(f"Floppy mounted at: {mount_point}")
+    audio_file = read_audio_file(mount_point)
+    play_audio_file(os.path.join('/home/pi', audio_file))
     # url = read_msg_file(mount_point)
     # if url and 'youtube.com' in url:
     #     play_youtube_url(url)
