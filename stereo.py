@@ -116,7 +116,8 @@ if not mount_point:
 else:
     print(f"Floppy mounted at: {mount_point}")
     audio_file = read_audio_file(mount_point)
-    play_audio_file(os.path.join('/home/pi', audio_file))
+    if audio_file:
+        play_audio_file(os.path.join('/home/pi', audio_file))
     # url = read_msg_file(mount_point)
     # if url and 'youtube.com' in url:
     #     play_youtube_url(url)
