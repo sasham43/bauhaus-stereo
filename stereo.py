@@ -63,7 +63,7 @@ def play_youtube_url(url):
         stream_url = subprocess.check_output(
             ['yt-dlp', '-g', url], stderr=subprocess.DEVNULL
         ).decode().strip()
-        subprocess.run(['mpv', stream_url])
+        subprocess.Popen(['mpv', stream_url])
     except Exception as e:
         print(f"Error playing video: {e}")
 
