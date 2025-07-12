@@ -85,6 +85,21 @@ def draw_wireframe_bar(surface, x, y, w, h, depth, color):
 
 
 # === MAIN LOOP ===
+
+
+# floppy stuff
+mount_point = get_floppy_mount_point()
+if not mount_point:
+    print("No floppy drive mounted.")
+    # return
+else:
+    print(f"Floppy mounted at: {mount_point}")
+    url = read_msg_file(mount_point)
+    if url and 'youtube.com' in url:
+        play_youtube_url(url)
+    else:
+        print("No valid YouTube URL found in msg.txt")
+
 t = 0
 running = True
 while running:
@@ -112,19 +127,6 @@ while running:
             y = screen_height - height - 40
             draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, (0, 255, 255))
         t += 1
-
-    # floppy stuff
-    mount_point = get_floppy_mount_point()
-    if not mount_point:
-        print("No floppy drive mounted.")
-        # return
-    else:
-        print(f"Floppy mounted at: {mount_point}")
-        url = read_msg_file(mount_point)
-        if url and 'youtube.com' in url:
-            play_youtube_url(url)
-        else:
-            print("No valid YouTube URL found in msg.txt")
 
 
     pygame.display.flip()
