@@ -102,14 +102,15 @@ if not mount_point:
     # return
 else:
     print(f"Floppy mounted at: {mount_point}")
-    url = read_msg_file(mount_point)
-    if url and 'youtube.com' in url:
-        play_youtube_url(url)
-    else:
-        print("No valid YouTube URL found in msg.txt")
+    # url = read_msg_file(mount_point)
+    # if url and 'youtube.com' in url:
+    #     play_youtube_url(url)
+    # else:
+    #     print("No valid YouTube URL found in msg.txt")
     
     # color
     bar_color = read_color_file(mount_point)
+    print('bar_color:', bar_color)
 
 t = 0
 running = True
@@ -137,7 +138,7 @@ while running:
             x = bar_spacing + i * (bar_width + bar_spacing)
             y = screen_height - height - 40
             # draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, (0, 255, 255))
-            draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, bar_color)
+            draw_wireframe_bar(screen, x, y, bar_width, height, bar_depth, pygame.Color(bar_color))
         t += 1
 
 
