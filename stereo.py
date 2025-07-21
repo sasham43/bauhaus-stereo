@@ -73,8 +73,9 @@ def read_audio_file(mount_point):
 
 def play_audio_file(file):
     try:
-        process = subprocess.Popen(['cvlc', file])
-        process.wait()
+        subprocess.Popen(['cvlc', file])
+        # process = subprocess.Popen(['cvlc', file])
+        # process.wait()
     except Exception as e:
         print(f"Error playing audio: {e}")
 
@@ -122,9 +123,10 @@ else:
         files = audio_file.split()
         print(f"files: {files}")
         random.shuffle(files)
-        for track in files:
-            print(f"Playing: {files}")
-            play_audio_file(os.path.join('/home/pi/audio', track))
+        play_audio_file(os.path.join('/home/pi/audio', files[0]))
+        # for track in files:
+        #     print(f"Playing: {track}")
+        #     play_audio_file(os.path.join('/home/pi/audio', track))
         # play_audio_file(os.path.join('/home/pi/audio/', audio_file))
     # url = read_msg_file(mount_point)
     # if url and 'youtube.com' in url:
