@@ -73,7 +73,8 @@ def read_audio_file(mount_point):
 
 def play_audio_file(file):
     try:
-        subprocess.Popen(['mpv', file])
+        p = subprocess.Popen(['mpv', file])
+        p.wait()
         # process = subprocess.Popen(['cvlc', file])
         # process.wait()
     except Exception as e:
