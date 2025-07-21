@@ -120,9 +120,8 @@ else:
         print(f"Audio file response: {audio_file}")
         files = audio_file.split()
         print(f"files: {files}")
-        shuffled = random.shuffle(files)
-        print(f"shuffled: {shuffled}")
-        for file in shuffled:
+        random.shuffle(files)
+        for file in files:
             play_audio_file(os.path.join('/home/pi/audio', file))
         # play_audio_file(os.path.join('/home/pi/audio/', audio_file))
     # url = read_msg_file(mount_point)
