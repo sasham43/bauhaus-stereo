@@ -122,6 +122,7 @@ else:
         print(f"files: {files}")
         random.shuffle(files)
         for file in files:
+            print(f"Playing: {files}")
             play_audio_file(os.path.join('/home/pi/audio', file))
         # play_audio_file(os.path.join('/home/pi/audio/', audio_file))
     # url = read_msg_file(mount_point)
