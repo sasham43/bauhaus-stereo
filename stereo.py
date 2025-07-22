@@ -74,7 +74,7 @@ def read_audio_file(mount_point):
 def play_audio_file(file):
     try:
         # p = subprocess.Popen(['mpv', file])
-        p = subprocess.Popen(['ffplay', '-nodisp', file])
+        p = subprocess.Popen(['ffplay', '-nodisp', '-autoexit', file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         p.wait()
         # process = subprocess.Popen(['cvlc', file])
         # process.wait()
