@@ -6,20 +6,37 @@ import readline from 'readline';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+import { createCanvas } from 'canvas';
+import fb from 'fb';
+
+// === FRAMEBUFFER CONFIG ===
+const fbInfo = fb.getInfo();
+const { width, height } = fbInfo;
+const framebuffer = fb.open({ width, height, depth: 32 });
+
+// === CANVAS ===
+const canvas = createCanvas(width, height);
+const ctx = canvas.getContext('2d');
+
+// === VISUALIZER CONFIG ===
+const NUM_BARS = 7;
+const FPS = 30;
+let frame = 0;
+
 // Enable __dirname with ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // === GLOBAL SETTINGS ===
-const FPS = 10;
-const NUM_BARS = 7;
+// const FPS = 10;
+// const NUM_BARS = 7;
 const MODE_VISUALIZER = 'visualizer';
 const MODE_FLOPPY = 'floppy';
 const MODE_ROSE = 'rose';
 
 let currentMode = MODE_FLOPPY;
 let barColor = 'cyan';
-let frame = 0;
+// let frame = 0;
 
 // === FLOPPY FUNCTIONS ===
 function getFloppyMountPoint() {
@@ -92,16 +109,39 @@ function getSimulatedAmplitude(i, t) {
   return Math.max(0, Math.min(1, base + noise));
 }
 
+
+// function drawBars(t) {
+//   let output = `\n[${barColor}]\n`;
+//   for (let i = 0; i < NUM_BARS; i++) {
+//     const amplitude = getSimulatedAmplitude(i, t);
+//     const height = Math.round(amplitude * 20);
+//     output += '|'.repeat(height).padEnd(20, ' ') + '\n';
+//   }
+//   console.clear();
+//   console.log(output);
+// }
 function drawBars(t) {
-  let output = `\n[${barColor}]\n`;
-  for (let i = 0; i < NUM_BARS; i++) {
-    const amplitude = getSimulatedAmplitude(i, t);
-    const height = Math.round(amplitude * 20);
-    output += '|'.repeat(height).padEnd(20, ' ') + '\n';
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, width, height);
+  
+    const spacing = 20;
+    const barWidth = (width - spacing * (NUM_BARS + 1)) / NUM_BARS;
+  
+    for (let i = 0; i < NUM_BARS; i++) {
+      const amp = getSimulatedAmplitude(i, t);
+      const barHeight = amp * height * 0.8;
+      const x = spacing + i * (barWidth + spacing);
+      const y = height - barHeight - 40;
+  
+      ctx.fillStyle = 'cyan';
+      ctx.fillRect(x, y, barWidth, barHeight);
+    }
+  
+    // Write to framebuffer
+    const rawBuffer = canvas.toBuffer('raw');
+    framebuffer.write(rawBuffer);
   }
-  console.clear();
-  console.log(output);
-}
+  
 
 // === MAIN LOOP ===
 function startLoop() {
