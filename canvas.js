@@ -1,4 +1,6 @@
-const {createCanvas} = require("canvas");
+// const {createCanvas} = require("canvas");
+import { createCanvas } from 'canvas';
+
 const canvas = createCanvas(480, 320);
 
 // Draw to your canvas:
