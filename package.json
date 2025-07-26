@@ -12,11 +12,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/sasham43/bauhaus-stereo/issues"
   },
   "homepage": "https://github.com/sasham43/bauhaus-stereo#readme",
   "description": "",
-  "type": "module"
+  "dependencies": {
+    "canvas": "^3.1.2",
+    "fb": "^2.0.0"
+  }
 }
