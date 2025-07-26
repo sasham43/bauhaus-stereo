@@ -3,7 +3,7 @@ import subprocess
 # def play_audio_file(file):
 try:
     # p = subprocess.Popen(['mpv', file])
-    p = subprocess.Popen(['ffplay', '-nodisp', '-autoexit', file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    p = subprocess.Popen(['ffplay', '-nodisp', '-autoexit', "/home/pi/audio/80s/alanparsonsproject_sirius.opus"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     p.wait()
     # process = subprocess.Popen(['cvlc', file])
     # process.wait()
