@@ -1,5 +1,5 @@
-// const {createCanvas} = require("canvas");
 import { createCanvas } from 'canvas';
+import fs from 'fs';
 
 const canvas = createCanvas(480, 320);
 
@@ -10,7 +10,7 @@ ctx.fillStyle = "red";
 ctx.fillText("Hello!", 50, 100);
 
 // Write to the framebuffer device:
-const fs = require("fs");
+// const fs = require("fs");
 const fb = fs.openSync("/dev/fb1", "w"); // where /dev/fb1 is the path to your fb device
 const buff = canvas.toBuffer("raw");
 console.log(buff.byteLength);  // should be equal to width*height*2
