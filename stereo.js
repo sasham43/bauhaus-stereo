@@ -17,7 +17,7 @@ const MODE_VISUALIZER = 'visualizer';
 const MODE_FLOPPY = 'floppy';
 const MODE_ROSE = 'rose';
 
-let currentMode = MODE_VISUALIZER;
+let currentMode = MODE_FLOPPY;
 let barColor = 'cyan';
 let frame = 0;
 
