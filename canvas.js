@@ -11,7 +11,7 @@ ctx.fillText("Hello!", 50, 100);
 
 // Write to the framebuffer device:
 // const fs = require("fs");
-const fb = fs.openSync("/dev/fb1", "w"); // where /dev/fb1 is the path to your fb device
+const fb = fs.openSync("/dev/fb0", "w"); // where /dev/fb1 is the path to your fb device
 const buff = canvas.toBuffer("raw");
 console.log(buff.byteLength);  // should be equal to width*height*2
 fs.writeSync(fb, buff, 0, buff.byteLength, 0);
