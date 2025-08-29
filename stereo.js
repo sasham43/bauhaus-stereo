@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 let baseColor = 'white';
+let player;
 
 // === FLOPPY FUNCTIONS ===
 function getFloppyMountPoint() {
@@ -41,7 +42,7 @@ function readFileTrimmed(filePath) {
 function playAudio(filePath) {
   try {
     console.log(`\nPlaying audio: ${filePath}`);
-    const player = spawn('ffplay', ['-nodisp', '-autoexit', filePath], {
+    player = spawn('ffplay', ['-nodisp', '-autoexit', filePath], {
       stdio: 'ignore'
     });
     player.on('exit', () => {
@@ -65,7 +66,9 @@ function handleFloppyMode() {
   if (audioData) {
     const files = audioData.split(/\s+/);
     const randomFile = files[Math.floor(Math.random() * files.length)];
-    playAudio(path.join('/home/pi/audio', randomFile));
+    if(!player){
+        // playAudio(path.join('/home/pi/audio', randomFile));
+    }
   }
 
   const color = readFileTrimmed(path.join(mount, 'color.txt'));
