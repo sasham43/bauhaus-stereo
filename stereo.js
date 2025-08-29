@@ -98,9 +98,7 @@ app.listen(PORT, () => {
 // === START YOUR LOOP ===
 function startLoop() {
   setInterval(() => {
-    if (currentMode === MODE_VISUALIZER) {
-      handleFloppyMode();
-    }
+    handleFloppyMode();    
   }, 5000);
 }
 
