@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Raspberry Pi Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: monospace;
+            font-size: 5rem;
+            background: #000;
+            color: #0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock">--:--</div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hh}:${mm}`;
+        }
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+                document.getElementById('info').textContent =
+                    `Mode: ${data.mode} | Color: ${data.color}`;
+            } catch (err) {
+                document.getElementById('info').textContent = 'Status: offline';
+            }
+        }
+
+        fetchStatus();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+
+</html>

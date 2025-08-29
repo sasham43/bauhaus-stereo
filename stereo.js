@@ -4,12 +4,13 @@ import path from 'path';
 import { execSync, spawn } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-
+import express from 'express';
 
 // Enable __dirname with ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+let baseColor = 'white';
 
 // === FLOPPY FUNCTIONS ===
 function getFloppyMountPoint() {
@@ -69,27 +70,39 @@ function handleFloppyMode() {
 
   const color = readFileTrimmed(path.join(mount, 'color.txt'));
   if (color) {
-    barColor = color;
-    console.log(`Visualizer color set to: ${barColor}`);
+    baseColor = color;
   }
 }
 
   
+// === WEB SERVER ===
+const app = express();
+const PORT = 3000;
 
-// === MAIN LOOP ===
+// Serve static files from "public" folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Simple API endpoint for status
+app.get('/api/status', (req, res) => {
+  res.json({
+    mode: currentMode,
+    color: baseColor,
+    time: new Date().toISOString()
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Web UI available at http://localhost:${PORT}`);
+});
+
+// === START YOUR LOOP ===
 function startLoop() {
   setInterval(() => {
     if (currentMode === MODE_VISUALIZER) {
-      drawBars(frame);
-    } else if (currentMode === MODE_FLOPPY) {
       handleFloppyMode();
-      currentMode = MODE_VISUALIZER; // auto-return after one play
-    } else if (currentMode === MODE_ROSE) {
-      console.log('\n🌹 Rose mode (placeholder)');
     }
-    frame++;
-  }, 1000 / FPS);
+  }, 5000);
 }
 
-console.log('Visualizer started. Press 1 (visualizer), 2 (floppy), 3 (rose), q to quit.');
+// Start loop
 startLoop();
