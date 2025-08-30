@@ -7,6 +7,8 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
+            gap: 18px;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -74,6 +76,7 @@
                     videoElement.src = `/videos/${video}`
                 }
             } catch (err) {
+                console.error(err)
                 if(infoElement){
                     infoElement.textContent = 'Status: offline';
                 }
