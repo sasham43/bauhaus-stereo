@@ -75,6 +75,7 @@ function handleFloppyMode() {
   }
 
   const color = readFileTrimmed(path.join(mount, 'color.txt'));
+  console.log('color', color)
   if (color) {
     baseColor = color;
   }
