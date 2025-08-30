@@ -24,12 +24,15 @@
         #info {
             text-align: center;
             font-size: 12px;
+            display: none;
         }
 
         #video {
             display: none;
             position: absolute;
             inset: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -70,17 +73,21 @@
                 //     `Mode: ${data.mode} | Color: ${data.color} | Video: ${data.video}`;
 
                 if(infoElement){
-                    infoElement.textContent = `Mode: ${data.mode} | Color: ${data.color} | Video: ${data.video}`;
+                    infoElement.textContent = `Color: ${data.color} | Video: ${data.video}`;
                 }
 
                 const {color, video} = data;
 
                 if(color && clockElement){
                     clockElement.style.color = color;
-                    // body.style.color = color;
                 }
+                if(color && infoElement){
+                    infoElement.style.color = color;
+                }
+
                 if(video && videoElement){
                     videoElement.src = `/videos/${video}`
+                    video.style.display = 'block'
                 }
             } catch (err) {
                 console.error(err)
