@@ -110,7 +110,7 @@ function getRandomVideoByColor(color, videosDir) {
   
       // Pick a random file
       const randomIndex = Math.floor(Math.random() * matchingFiles.length);
-      return path.join(videosDir, matchingFiles[randomIndex]);
+      return matchingFiles[randomIndex];
     } catch (error) {
       console.error('Error reading video directory:', error);
       return null;
