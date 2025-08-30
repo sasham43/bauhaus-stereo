@@ -129,7 +129,6 @@ app.use('/videos', express.static('/home/pi/holograms/output'));
 // Simple API endpoint for status
 app.get('/api/status', (req, res) => {
   res.json({
-    mode: currentMode,
     color: baseColor,
     video: displayVideo,
     time: new Date().toISOString()
