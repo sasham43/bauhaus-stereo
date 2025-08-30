@@ -60,6 +60,7 @@
 
                 infoElement = document.getElementById('info')
                 videoElement = document.getElementById('video')
+                clockElement = document.getElementById('clock')
                 // document.getElementById('info').textContent =
                 //     `Mode: ${data.mode} | Color: ${data.color} | Video: ${data.video}`;
 
@@ -69,8 +70,9 @@
 
                 const {color, video} = data;
 
-                if(color){
-                    body.style.color = color;
+                if(color && clockElement){
+                    clockElement.style.color = color;
+                    // body.style.color = color;
                 }
                 if(video && videoElement){
                     videoElement.src = `/videos/${video}`
