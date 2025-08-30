@@ -10,8 +10,11 @@ import express from 'express';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const videosDirectory = '/home/pi/holograms/output'
+
 let baseColor = 'white';
 let player;
+let displayVideo;
 
 // === FLOPPY FUNCTIONS ===
 function getFloppyMountPoint() {
@@ -75,7 +78,43 @@ function handleFloppyMode() {
   if (color) {
     baseColor = color;
   }
+
+  const video = getRandomVideoByColor(baseColor, videosDirectory)
+  console.log('video', video)
+  if(video){
+    displayVideo = video;
+  }
 }
+
+/**
+ * Get a random video file matching the given color.
+ * @param {string} color - The color prefix (e.g., 'green')
+ * @param {string} videosDir - The directory where videos are stored
+ * @returns {string|null} - The random video filename or null if none found
+ */
+function getRandomVideoByColor(color, videosDir) {
+    try {
+      // Read all files in the directory
+      const files = fs.readdirSync(videosDir);
+  
+      // Filter only .mp4 files that start with the given color and a hyphen
+      const matchingFiles = files.filter(file =>
+        file.toLowerCase().startsWith(`${color.toLowerCase()}-`) &&
+        file.toLowerCase().endsWith('.mp4')
+      );
+  
+      if (matchingFiles.length === 0) {
+        return null; // No matching video found
+      }
+  
+      // Pick a random file
+      const randomIndex = Math.floor(Math.random() * matchingFiles.length);
+      return path.join(videosDir, matchingFiles[randomIndex]);
+    } catch (error) {
+      console.error('Error reading video directory:', error);
+      return null;
+    }
+  }
 
   
 // === WEB SERVER ===
@@ -92,6 +131,7 @@ app.get('/api/status', (req, res) => {
   res.json({
     mode: currentMode,
     color: baseColor,
+    video: displayVideo,
     time: new Date().toISOString()
   });
 });

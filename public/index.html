@@ -12,14 +12,29 @@
             height: 100vh;
             font-family: monospace;
             font-size: 5rem;
-            background: #000;
+            background: #000;            
+            
             color: #0f0;
+
+            transform: translateY(-1);
+        }
+
+        #video {
+            display: none;
+            position: absolute;
+            inset: 0;
         }
     </style>
 </head>
 
 <body>
     <div id="clock">--:--</div>
+    <div>
+        <video id="video">
+        </video>
+    </div>
+
+
     <script>
         function updateClock() {
             const now = new Date();
@@ -33,6 +48,15 @@
                 const data = await res.json();
                 document.getElementById('info').textContent =
                     `Mode: ${data.mode} | Color: ${data.color}`;
+
+                const {color, video} = data;
+
+                if(color){
+                    body.style.color = color;
+                }
+                if(video){
+                    document.getElementById('video').src = `/videos/${video}`
+                }
             } catch (err) {
                 document.getElementById('info').textContent = 'Status: offline';
             }
