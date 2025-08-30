@@ -84,6 +84,8 @@ const PORT = 3000;
 
 // Serve static files from "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/videos', express.static('/home/pi/holograms/output'));
+
 
 // Simple API endpoint for status
 app.get('/api/status', (req, res) => {
