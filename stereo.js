@@ -60,7 +60,7 @@ function handleFloppyMode() {
     return;
   }
 
-  console.log(`\nFloppy mounted at ${mount}`);
+//   console.log(`\nFloppy mounted at ${mount}`);
 
   const audioData = readFileTrimmed(path.join(mount, 'audio.txt'));
   if (audioData) {
