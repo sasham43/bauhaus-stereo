@@ -29,6 +29,9 @@
 
 <body>
     <div id="clock">--:--</div>
+    <div id="info">
+
+    </div>
     <div>
         <video id="video">
         </video>
@@ -40,14 +43,14 @@
             const now = new Date();
             const hh = String(now.getHours()).padStart(2, '0');
             const mm = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hh}:${mm}`;
+            document.getElementById('clock')?.textContent = `${hh}:${mm}`;
         }
         async function fetchStatus() {
             try {
                 const res = await fetch('/api/status');
                 const data = await res.json();
                 document.getElementById('info').textContent =
-                    `Mode: ${data.mode} | Color: ${data.color}`;
+                    `Mode: ${data.mode} | Color: ${data.color} | Video: ${data.video}`;
 
                 const {color, video} = data;
 
