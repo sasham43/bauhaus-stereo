@@ -19,6 +19,7 @@
             color: #0f0;
 
             transform: scaleY(-1);
+            transform: scaleX(-1);
         }
 
         #info {
@@ -87,7 +88,7 @@
 
                 if(video && videoElement){
                     videoElement.src = `/videos/${video}`
-                    video.style.display = 'block'
+                    videoElement.style.display = 'block'
                 }
             } catch (err) {
                 console.error(err)
