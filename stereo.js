@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 const videosDirectory = '/home/pi/holograms/output'
 
-let baseColor = 'white';
+let baseColor = 'blue';
 let player;
 let displayVideo;
 
