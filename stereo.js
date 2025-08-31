@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 
 const videosDirectory = '/home/pi/holograms/output'
 
-let baseColor = 'blue';
+let baseColor = 'purple';
 let player;
 let displayVideo;
 
@@ -131,9 +131,9 @@ app.use('/videos', express.static('/home/pi/holograms/output'));
 app.get('/api/status', (req, res) => {
   res.json({
     color: baseColor,
-    // video: displayVideo,
+    video: displayVideo,
     // video: 'blue-lightning.mp4',
-    video: 'orange-sun.mp4',
+    // video: 'orange-sun.mp4',
     time: new Date().toISOString()
   });
 });
