@@ -131,7 +131,8 @@ app.use('/videos', express.static('/home/pi/holograms/output'));
 app.get('/api/status', (req, res) => {
   res.json({
     color: baseColor,
-    video: displayVideo,
+    // video: displayVideo,
+    video: 'blue-lightning',
     time: new Date().toISOString()
   });
 });
