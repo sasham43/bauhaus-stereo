@@ -132,7 +132,7 @@ app.get('/api/status', (req, res) => {
   res.json({
     color: baseColor,
     // video: displayVideo,
-    video: 'blue-lightning',
+    video: 'blue-lightning.mp4',
     time: new Date().toISOString()
   });
 });
